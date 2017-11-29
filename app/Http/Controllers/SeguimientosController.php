@@ -558,10 +558,10 @@ class SeguimientosController extends Controller {
                         ->join('clientes as c', 'c.id', '=', 'has.cliente_id')
                         ->join('empleados as e', 'e.id', '=', 'c.empleado_id')
                         ->join('plantels as p', 'p.id', '=', 'e.plantel_id')
-                        ->where('has.fecha', '>', $input['fecha_f'])
-                        ->where('has.fecha', '<', $input['fecha_t'])
-                        ->where('c.plantel_id', '>', $input['plantel_f'])
-                        ->where('c.plantel_id', '<', $input['plantel_t'])
+                        ->where('has.fecha', '>=', $input['fecha_f'])
+                        ->where('has.fecha', '<=', $input['fecha_t'])
+                        ->where('c.plantel_id', '>=', $input['plantel_f'])
+                        ->where('c.plantel_id', '<=', $input['plantel_t'])
                         ->get();
             return view('seguimientos.reportes.analitica_actividadesr')
                         ->with('actividades', json_encode($ds_actividades));

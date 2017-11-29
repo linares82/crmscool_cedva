@@ -26,7 +26,7 @@ use Sms;
 use Session;
 use Hash;
 use DB;
-
+use Excel;
 //use App\Mail\CorreoBienvenida as Envia_mail;
 
 class ClientesController extends Controller {
@@ -645,6 +645,38 @@ class ClientesController extends Controller {
                 return $r;
             }
         }
+    }
+    
+    public function descargaClientes(){
+        
+        $clientes = Cliente::select('clientes.fec_registro as FechaRegistro', 'clientes.nombre as PrimerNombre', 
+                        'clientes.nombre2 as SegundoNombre', 'clientes.ape_paterno as ApellidoPaterno', 'clientes.ape_materno as ApellidoMaterno',
+                        'clientes.tel_fijo as Telefono', 'clientes.tel_cel as Celular', 'clientes.mail as Email', 
+                        'clientes.escuela_procedencia as EscuelaProcedencia', 'm.name as medio as Medio')
+                        ->join('medios as m', 'm.id', '=', 'clientes.medio_id')
+                        //->limit(20)
+                        ->get();
+        //dd($clientes);
+        /*$clientes_array=array();
+        $encabezados=array('Fecha', 'P. Nombre', 'S. Nombre', 'A. Paterno', 'A. Materno', 'Teléfono', 
+                        'Celular', 'Mail', 'Escuela Procedencia', 'Medio');
+        array_push($clientes_array, $encabezados);
+        //dd($clientes_array);
+         
+        foreach($clientes as $c){
+            //$clientes_array=$c->toArray();
+            array_push($clientes_array, $c);
+        }
+        dd($clientes_array);
+         * 
+         */
+        //dd("excel inicia");
+        Excel::create('Clientes', function($excel) use ($clientes) {
+            $excel->sheet('Clientes', function($sheet) use ($clientes) {
+                $sheet->fromArray($clientes->toArray());
+            });
+        })->download('xlsx');
+        dd("excel terminado");
     }
 
 }

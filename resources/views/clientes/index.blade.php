@@ -31,6 +31,7 @@
             @endpermission
             @permission('clientes.carga')
             <a class="btn btn-warning pull-right" href="{{ route('clientes.carga') }}"><i class="glyphicon glyphicon-plus"></i> Carga Archivo</a>
+            <a class="btn btn-primary pull-right" href="{{ route('clientes.descargaClientes') }}"><i class="fa fa-long-arrow-down"></i> Descarga</a>
             @endpermission
         </h3>
 
