@@ -1,0 +1,1 @@
+@section('stAlumnosAppTitle','Estatus Alumno')

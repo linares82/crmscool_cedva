@@ -1,0 +1,28 @@
+                <div class="form-group @if($errors->has('aviso_gral_id')) has-error @endif">
+                       <label for="aviso_gral_id-field">Aviso_gral_id</label>
+                       {!! Form::text("aviso_gral_id", null, array("class" => "form-control", "id" => "aviso_gral_id-field")) !!}
+                       @if($errors->has("aviso_gral_id"))
+                        <span class="help-block">{{ $errors->first("aviso_gral_id") }}</span>
+                       @endif
+                    </div>
+                    <div class="form-group @if($errors->has('empleado_id')) has-error @endif">
+                       <label for="empleado_id-field">Empleado_id</label>
+                       {!! Form::text("empleado_id", null, array("class" => "form-control", "id" => "empleado_id-field")) !!}
+                       @if($errors->has("empleado_id"))
+                        <span class="help-block">{{ $errors->first("empleado_id") }}</span>
+                       @endif
+                    </div>
+                    <div class="form-group @if($errors->has('usu_alta_id')) has-error @endif">
+                       <label for="usu_alta_id-field">Usu_alta_id</label>
+                       {!! Form::text("usu_alta_id", null, array("class" => "form-control", "id" => "usu_alta_id-field")) !!}
+                       @if($errors->has("usu_alta_id"))
+                        <span class="help-block">{{ $errors->first("usu_alta_id") }}</span>
+                       @endif
+                    </div>
+                    <div class="form-group @if($errors->has('usu_mod_id')) has-error @endif">
+                       <label for="usu_mod_id-field">Usu_mod_id</label>
+                       {!! Form::text("usu_mod_id", null, array("class" => "form-control", "id" => "usu_mod_id-field")) !!}
+                       @if($errors->has("usu_mod_id"))
+                        <span class="help-block">{{ $errors->first("usu_mod_id") }}</span>
+                       @endif
+                    </div>

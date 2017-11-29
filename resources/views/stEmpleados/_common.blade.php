@@ -1,0 +1,1 @@
+@section('stEmpleadosAppTitle','Estatus Empleados')

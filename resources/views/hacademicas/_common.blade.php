@@ -1,0 +1,1 @@
+@section('hacademicasAppTitle','Historia Academica')

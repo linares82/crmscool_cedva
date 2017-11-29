@@ -1,0 +1,35 @@
+php artisan make:scaffold Inscripcion --schema="plantel_id:integer:unsigned,especialidad_id:integer:unsigned,nivel_id:integer:unsigned, grado_id:integer:unsigned, grupo_id:integer:unsigned, alumno_id:integer:unsigned, fec_inscripcion:date,periodo_lectivo_id:integer:unsigned, usu_alta_id:integer:unsigned, usu_mod_id:integer:unsigned" --softdelete
+php artisan make:scaffold DocAlumno --schema="name:string, doc_obligatorio:boolean, , usu_alta_id:integer:unsigned, usu_mod_id:integer:unsigned" --softdelete
+
+
+_________________________________________
+php artisan make:scaffold Asunto --schema="name:string, usu_alta_id:integer:unsigned, usu_mod_id:integer:unsigned" --softdelete
+
+php artisan make:scaffold PreguntaCliente --schema="pregunta_id:integer:unsigned, cliente_id:integer:unsigned, respuesta:string, usu_alta_id:integer:unsigned, usu_mod_id:integer:unsigned" --softdelete
+
+php artisan make:scaffold AsignacionTarea --schema="cliente_id:integer:unsigned, empleado_id:integer:unsigned, tarea_id:integer:unsigned, asunto:string, detalle:text, estatus_id:integer:unsigned, observaciones:text, usu_alta_id:integer:unsigned, usu_mod_id:integer:unsigned" --softdelete
+
+php artisan make:scaffold SeguimientoTarea --schema="asignacion_tarea_id:integer:unsigned, estatus_id:integer:unsigned, detalle:text, usu_alta_id:integer:unsigned, usu_mod_id:integer:unsigned" --softdelete
+
+
+
+php artisan make:scaffold Plantilla --schema="plantilla:text, st_cliente_id:unsigned:integer, periodo_id:integer:unsigned, dia:integer:unsigned, usu_alta_id:integer:unsigned, usu_mod_id:integer:unsigned" --softdelete
+
+php artisan make:relation Periodo Plantilla
+php artisan make:relation Pregunta PreguntaCliente
+php artisan make:relation Cliente PreguntaCliente
+
+php artisan make:scaffold Oferta --schema="name:string, usu_alta_id:integer:unsigned, usu_mod_id:integer:unsigned" --softdelete
+
+php artisan make:scaffold Medio --schema="name:string, usu_alta_id:integer:unsigned, usu_mod_id:integer:unsigned" --softdelete
+
+php artisan make:scaffold Tarea --schema="name:string, usu_alta_id:integer:unsigned, usu_mod_id:integer:unsigned" --softdelete
+
+php artisan make:scaffold Estado --schema="name:string, usu_alta_id:integer:unsigned, usu_mod_id:integer:unsigned" --softdelete
+
+php artisan make:scaffold Municipio --schema="name:string, estado_id:integer:unsigned, usu_alta_id:integer:unsigned, usu_mod_id:integer:unsigned" --softdelete
+
+php artisan make:relation Estado Municipio
+
+php artisan make:scaffold Cliente --schema="cve_cliente:string, nombre:string:unique, fec_registro:date, tel_fijo:string, tel_cel:string:unique, mail:string:unique, calle:string, no_exterior:string, no_interior:string, colonia:string, cp:string, municipio_:string, estado_id:string, st_cliente_id:integer:unsigned, oferta_id:integer:unsigned, medio_id:integer:unsigned, expo:string, otro_medio:string, empleado_id:integer:unsigned, promociones:boolean, promo_cel:boolean, promo_correo:boolean, usu_alta_id:integer:unsigned, usu_mod_id:integer:unsigned" --softdelete
+

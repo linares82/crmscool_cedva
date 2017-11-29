@@ -1,0 +1,1 @@
+@section('asignacionAcademicasAppTitle','Asignacion Academica')

@@ -1,0 +1,1 @@
+@section('especialidadsAppTitle','Especialidad')
