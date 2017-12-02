@@ -652,8 +652,10 @@ class ClientesController extends Controller {
         $clientes = Cliente::select('clientes.fec_registro as FechaRegistro', 'clientes.nombre as PrimerNombre', 
                         'clientes.nombre2 as SegundoNombre', 'clientes.ape_paterno as ApellidoPaterno', 'clientes.ape_materno as ApellidoMaterno',
                         'clientes.tel_fijo as Telefono', 'clientes.tel_cel as Celular', 'clientes.mail as Email', 
-                        'clientes.escuela_procedencia as EscuelaProcedencia', 'm.name as medio as Medio')
+                        'clientes.escuela_procedencia as EscuelaProcedencia', 'm.name as medio as Medio',
+                        DB::raw('concat(e.nombre, " ",e.ape_paterno, " ",e.ape_materno) as Asesor'))
                         ->join('medios as m', 'm.id', '=', 'clientes.medio_id')
+                        ->join('empleados as e', 'e.id', '=', 'clientes.empleado_id')
                         //->limit(20)
                         ->get();
         //dd($clientes);
