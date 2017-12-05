@@ -69,10 +69,12 @@
                             </div>
                             <div class="row">
                             </div>
-
+                            
+                            @if($seguimiento->st_seguimiento_id<>2)
                             <div class="well well-sm">
-                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                                <button type="submit" class="btn btn-primary" id="btn_actualizar">Actualizar</button>
                             </div>
+                            @endif
                         </form>
                     </div>
                 </div>
@@ -343,5 +345,7 @@
         show_select_today: 'Hoy',
       });
     });
+    
+    
     </script>
 @endpush
