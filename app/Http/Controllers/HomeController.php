@@ -8,6 +8,7 @@ use App\Lectivo;
 use App\AvisoGral;
 use App\PivotAvisoGralEmpleado;
 use App\Seguimiento;
+use App\Hactividade;
 use App\Empleado;
 use App\Menu;
 use DB;
@@ -48,43 +49,25 @@ class HomeController extends Controller
 					->get();
         //dd($avisos);
         $mes=(int)date('m');
-        //dd($mes);
-        $a_1=Seguimiento::select(Db::raw('count(c.nombre) as total'))
-                    ->where('st_seguimiento_id', '=', 1)
-                    ->join('clientes as c', 'c.id', '=', 'seguimientos.cliente_id')
-                    //->where('mes', '=', $mes)
-                    ->where('c.plantel_id', '=', $e->plantel_id)
-                    ->where('c.empleado_id', '=', $e->id)
-                    ->value('total');
-        //dd($a_1);
-        $a_2=Seguimiento::where('st_seguimiento_id', '=', 2)
-                    ->join('clientes as c', 'c.id', '=', 'seguimientos.cliente_id')
-                    //->where('mes', '=', $mes)
-                    ->where('seguimientos.created_at', '>=', $l->inicio)
-                    ->where('seguimientos.created_at', '<=', $l->fin)
-                    ->where('c.empleado_id', '=', $e->id)
-                    ->where('c.plantel_id', '=', $e->plantel_id)
-                    ->count();
-        //dd($e->plantel->meta_venta);
-        $avance=0;
-        if($a_2>0){
-            $avance=(($a_2*100)/$e->plantel->meta_total);
-        }
+        //dd($mes);-
         
-        //dd($a_3."*100 / ".$e->plantel->meta_venta);
-        $a_3=Seguimiento::where('st_seguimiento_id', '=', 3)
-                    ->join('clientes as c', 'c.id', '=', 'seguimientos.cliente_id')
-                    //->where('mes', '=', $mes)
-                    ->where('c.empleado_id', '=', $e->id)
-                    ->where('c.plantel_id', '=', $e->plantel_id)
-                    ->count();
         
-        $a_4=Seguimiento::where('st_seguimiento_id', '=', 4)
+        $a_2=Seguimiento::select('p.id','p.razon', 'p.meta_total', 
+                    DB::raw('count(c.nombre) as avance'), DB::raw('((count(c.nombre)*100)/p.meta_total) as p_avance'))
                     ->join('clientes as c', 'c.id', '=', 'seguimientos.cliente_id')
-                    //->where('mes', '=', $mes)
-                    ->where('c.empleado_id', '=', $e->id)
-                    ->where('c.plantel_id', '=', $e->plantel_id)
-                    ->count();
+                    ->join('plantels as p', 'p.id', '=', 'c.plantel_id')
+                    ->join('hactividades as h', 'h.cliente_id', '=', 'c.id')
+                    ->where('h.tarea', '=', 'Seguimiento')
+                    ->where('h.detalle', '=', 'Concretado')
+                    ->where('h.created_at', '>=', $l->inicio)
+                    ->where('h.created_at', '<=', $l->fin)
+                    ->where('c.st_cliente_id', '=', '4')
+                    ->groupBy('p.id')
+                    ->groupBy('p.razon')
+                    ->groupBy('p.meta_total')
+                    ->get();
+        //dd($a_2->toArray());
+        
         $fecha=date('Y-m-d');
         $avisos_generales=PivotAvisoGralEmpleado::where('leido','=', 0)
                                     ->where('enviado','=', 1)
@@ -134,7 +117,7 @@ class HomeController extends Controller
         
         
         //dd($ds_actividades->toArray());
-        return view('home', compact('avisos', 'a_1', 'a_2', 'a_3', 'a_4', 'grafica2','grafica', 'avisos_generales', 'avance'))
+        return view('home', compact('avisos', 'a_2', 'grafica2','grafica', 'avisos_generales'))
                     ->with('datos', json_encode($datos))
                     ->with('datos2', json_encode($datos2));
     }

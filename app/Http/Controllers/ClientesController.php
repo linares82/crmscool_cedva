@@ -555,7 +555,7 @@ class ClientesController extends Controller {
             try {
                 $r = Param::where('llave', '=', 'correo_electronico')->first();
                 if ($r->valor == 'activo') {
-                    \Mail::send('emails.7', $p, function($message) use ($request) {
+                    \Mail::send('emails.2', array('img1'=>$pla->img1, 'plantilla'=>$pla->plantilla, 'id'=>$cli->id), function($message) use ($request) {
                         $message->to(e($request->mail), e($request->nombre) . " " . e($request->ape_paterno) . " " . e($request->ape_materno));
                         $message->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                         $message->subject("Bienvenido");

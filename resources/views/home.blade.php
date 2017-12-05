@@ -44,26 +44,8 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-md-2 col-sm-2 col-xs-12">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h4 class="box-title">
-                        % Avance hacia la meta: 
-                        @if($avance<=75)
-                            <div class="bg-red">Sigue esforzandote.</div>
-                        @elseif($avance>75 and $avance<=90)
-                            <div class="bg-yellow">Estas cada dia más cerca.</div>
-                        @elseif($avance>90)
-                            <div class="bg-green">Felicidades, aun falta un poco.</div>
-                        @endif
-                    </h4>
-                </div>
-                <div class="box-body">
-                        <div id="velocimetro" style="height: 180px;"></div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group col-md-5 col-sm-5 col-xs-12">
+        
+        <div class="form-group col-md-5 col-sm-5 col-xs-12" style='display: none'>
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h4 class="box-title">
@@ -76,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-md-5 col-sm-5 col-xs-12">
+        <div class="form-group col-md-5 col-sm-5 col-xs-12" style='display: none'>
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h4 class="box-title">
@@ -89,82 +71,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <!-- small box -->
-            <div class="info-box" >
-                <span class="info-box-icon bg-aqua">
-                    <h1> {{$a_1}} </h1>
-                </span>
-                <div class="info-box-content" >
-                    <h3><span class="info-box-text"> Pendientes en el mes </span></h3>
-                    <!--<a href="{{ route('seguimientos.reporteSeguimientosXEmpleado', array('estatus'=>1)) }}" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>-->
-                    <a href="{{ route('clientes.index').'?q[s]=&q[clientes.nombre_cont]=&q[clientes.nombre2_cont]=&q[clientes.ape_paterno_cont]=&q[clientes.ape_materno_cont]=&q[st_seguimiento_id_cont]=1&q[clientes.plantel_id_cont]='.
-                                                        DB::table('empleados')->where('user_id', Auth::user()->id)->value('plantel_id').
-                                                        '&q[clientes.empleado_id_cont]='.
-                                                        DB::table('empleados')->where('user_id', Auth::user()->id)->value('id').
-                                                        '&commit=Buscar' }}" 
-                    class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
-                </div>    
-            </div>
-            
-        </div><!-- ./col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <!-- small box -->
-            <div class="info-box">
-                <span class="info-box-icon bg-green">
-                    <h1> {{$a_2}} </h1>
-                </span>
-                <div class="info-box-content">
-                    <h3><span class="info-box-text"> Concretados en el mes </span></h3>
-                    <!--<a href="{{ route('seguimientos.reporteSeguimientosXEmpleado', array('estatus'=>2)) }}" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>-->
-                    <a href="{{ route('clientes.index').'?q[s]=&q[clientes.nombre_cont]=&q[clientes.nombre2_cont]=&q[clientes.ape_paterno_cont]=&q[clientes.ape_materno_cont]=&q[st_seguimiento_id_cont]=2&q[clientes.plantel_id_cont]='.
-                                                        DB::table('empleados')->where('user_id', Auth::user()->id)->value('plantel_id').
-                                                        '&q[clientes.empleado_id_cont]='.
-                                                        DB::table('empleados')->where('user_id', Auth::user()->id)->value('id').
-                                                        '&commit=Buscar' }}" 
-                    class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-                
-            </div>
-        </div><!-- ./col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <!-- small box -->
-            <div class="info-box">
-                <span class="info-box-icon bg-yellow">
-                    <h1> {{$a_4}} </h1>
-                </span>
-                <div class="info-box-content">
-                    <h3><span class="info-box-text"> En proceso en el mes </span></h3>
-                    <!--<a href="{{ route('seguimientos.reporteSeguimientosXEmpleado', array('estatus'=>4)) }}" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>-->
-                    <a href="{{ route('clientes.index').'?q[s]=&q[clientes.nombre_cont]=&q[clientes.nombre2_cont]=&q[clientes.ape_paterno_cont]=&q[clientes.ape_materno_cont]=&q[st_seguimiento_id_cont]=4&q[clientes.plantel_id_cont]='.
-                                                        DB::table('empleados')->where('user_id', Auth::user()->id)->value('plantel_id').
-                                                        '&q[clientes.empleado_id_cont]='.
-                                                        DB::table('empleados')->where('user_id', Auth::user()->id)->value('id').
-                                                        '&commit=Buscar' }}" 
-                    class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-                
-            </div>
-        </div><!-- ./col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <!-- small box -->
-            <div class="info-box">
-                <span class="info-box-icon bg-red">
-                    <h1> {{$a_3}} </h1>
-                </span>
-                <div class="info-box-content">
-                    <h3><span class="info-box-text"> Rechazados en el mes </span></h3>
-                    <!--<a href="{{ route('seguimientos.reporteSeguimientosXEmpleado', array('estatus'=>3)) }}" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>-->
-                    <a href="{{ route('clientes.index').'?q[s]=&q[clientes.nombre_cont]=&q[clientes.nombre2_cont]=&q[clientes.ape_paterno_cont]=&q[clientes.ape_materno_cont]=&q[st_seguimiento_id_cont]=3&q[clientes.plantel_id_cont]='.
-                                                        DB::table('empleados')->where('user_id', Auth::user()->id)->value('plantel_id').
-                                                        '&q[clientes.empleado_id_cont]='.
-                                                        DB::table('empleados')->where('user_id', Auth::user()->id)->value('id').
-                                                        '&commit=Buscar' }}" 
-                    class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-        </div><!-- ./col -->
-    </div><!-- /.row -->
         
     <div class="row">
         <div class="form-group col-md-6">
@@ -253,6 +159,29 @@
                 </div>
             </div>
         </div>
+        @foreach($a_2 as $grf)
+        <div class="form-group col-md-2 col-sm-2 col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h4 class="box-title">
+                        % Avance hacia la meta en {{$grf->razon}}: 
+                        @if($grf->p_avance<=75)
+                            <div class="bg-red">Sigue esforzandote.</div>
+                        @elseif($grf->p_avance>75 and $avance<=90)
+                            <div class="bg-yellow">Estas cada dia más cerca.</div>
+                        @elseif($grf->p_avance>90)
+                            <div class="bg-green">Felicidades, aun falta un poco.</div>
+                        @endif
+                    </h4>
+                </div>
+                <div class="box-body">
+                        <div id="velocimetro_{{$grf->id}}" style="height: 180px;"></div>
+                        Meta del plantel: {{$grf->meta_total}}
+                        Inscritos: {{$grf->avance}}
+                </div>
+            </div>
+        </div>
+        @endforeach
     </div>
 
 @endsection
@@ -263,7 +192,10 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">    
         google.charts.load('current', {'packages':['gauge','corechart', 'bar']});
-        google.charts.setOnLoadCallback(drawChart);
+        @foreach($a_2 as $grf)
+            google.charts.setOnLoadCallback(drawChart_velocimetro{{$grf->id}});
+        @endforeach
+        
         google.charts.setOnLoadCallback(drawVisualization);
         google.charts.setOnLoadCallback(drawVisualization2);
 
@@ -314,10 +246,11 @@
         
 
         //Gaugace Chart
-        function drawChart() {
+        @foreach($a_2 as $grf)
+        function drawChart_velocimetro{{$grf->id}}() {
             var data = google.visualization.arrayToDataTable([
             ['Label', 'Value'],
-            ['Concretados', {{ $avance }}],
+            ['Concretados', {{ $grf->p_avance }}],
             ]);
 
             var options = {
@@ -328,12 +261,12 @@
             minorTicks: 5
             };
 
-            var chart = new google.visualization.Gauge(document.getElementById('velocimetro'));
+            var chart = new google.visualization.Gauge(document.getElementById('velocimetro_{{$grf->id}}'));
 
             chart.draw(data, options);
 
         }//End Guagace Chart
-
+        @endforeach
         /*
         $(function() {
          var chart = new Morris.Bar({
