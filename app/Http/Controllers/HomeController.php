@@ -51,8 +51,34 @@ class HomeController extends Controller
         $mes=(int)date('m');
         //dd($mes);-
         
+        $plantels=DB::table('plantels as p')->where('id', '>', 0)->select('razon', 'id')->get();
+        $a_2=array();
+        foreach($plantels as $p){
+            $c=Seguimiento::select('p.id','p.razon', 'p.meta_total', 
+                    DB::raw('count(c.nombre) as avance'), DB::raw('((count(c.nombre)*100)/p.meta_total) as p_avance'))
+                    ->join('clientes as c', 'c.id', '=', 'seguimientos.cliente_id')
+                    ->join('plantels as p', 'p.id', '=', 'c.plantel_id')
+                    ->join('hactividades as h', 'h.cliente_id', '=', 'c.id')
+                    ->where('h.tarea', '=', 'Seguimiento')
+                    ->where('h.detalle', '=', 'Concretado')
+                    ->where('h.created_at', '>=', $l->inicio)
+                    ->where('h.created_at', '<=', $l->fin)
+                    ->where('c.st_cliente_id', '=', '4')
+                    ->where('p.id', '=', $p->id)
+                    ->groupBy('p.id')
+                    ->groupBy('p.razon')
+                    ->groupBy('p.meta_total')
+                    ->first();
+            if(is_null($c)){
+                array_push($a_2, array('id'=>$p->id,'razon'=>$p->razon,'meta_total'=>0,'avance'=>0, 'p_avance'=>0));
+            }else {
+                array_push($a_2, $c->toArray());
+            }
+        }
+        //dd($a_2);
+        //dd($gauges);
         
-        $a_2=Seguimiento::select('p.id','p.razon', 'p.meta_total', 
+        /*$a_2=Seguimiento::select('p.id','p.razon', 'p.meta_total', 
                     DB::raw('count(c.nombre) as avance'), DB::raw('((count(c.nombre)*100)/p.meta_total) as p_avance'))
                     ->join('clientes as c', 'c.id', '=', 'seguimientos.cliente_id')
                     ->join('plantels as p', 'p.id', '=', 'c.plantel_id')
@@ -66,6 +92,7 @@ class HomeController extends Controller
                     ->groupBy('p.razon')
                     ->groupBy('p.meta_total')
                     ->get();
+        */
         //dd($a_2->toArray());
         
         $fecha=date('Y-m-d');
@@ -99,8 +126,9 @@ class HomeController extends Controller
             }else{
                 array_push($datos, array($g->estatus, $g->valor, 0));
             }
-            
         }
+        
+        
         
         $grafica2=Seguimiento::select('sts.name as estatus', DB::raw('count(sts.name) as valor'))
                     ->join('clientes as c', 'c.id', '=', 'seguimientos.cliente_id')

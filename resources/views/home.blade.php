@@ -18,6 +18,7 @@
         
     </div>
     <div class="row">
+        @permission('Wanalitica')
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
@@ -30,6 +31,7 @@
                 </div>
             </div>
         </div>
+        @endpermission
         <div class="form-group col-md-6 col-sm-6 col-xs-12" style='display: none'>
             <div class="box box-primary">
                 <div class="box-header with-border">
@@ -159,29 +161,25 @@
                 </div>
             </div>
         </div>
+        @permission('WgaugesXplantel')
         @foreach($a_2 as $grf)
         <div class="form-group col-md-2 col-sm-2 col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h4 class="box-title">
-                        % Avance hacia la meta en {{$grf->razon}}: 
-                        @if($grf->p_avance<=75)
-                            <div class="bg-red">Sigue esforzandote.</div>
-                        @elseif($grf->p_avance>75 and $avance<=90)
-                            <div class="bg-yellow">Estas cada dia más cerca.</div>
-                        @elseif($grf->p_avance>90)
-                            <div class="bg-green">Felicidades, aun falta un poco.</div>
-                        @endif
+                        {{$grf['razon']}}: 
                     </h4>
                 </div>
                 <div class="box-body">
-                        <div id="velocimetro_{{$grf->id}}" style="height: 180px;"></div>
-                        Meta del plantel: {{$grf->meta_total}}
-                        Inscritos: {{$grf->avance}}
+                        <div id="velocimetro_{{$grf['id']}}" style="height: 180px;"></div>
+                        Meta del plantel: {{$grf['meta_total']}}
+                        <br/>
+                        Inscritos: {{$grf['avance']}}
                 </div>
             </div>
         </div>
         @endforeach
+        @endpermission
     </div>
 
 @endsection
@@ -193,7 +191,7 @@
     <script type="text/javascript">    
         google.charts.load('current', {'packages':['gauge','corechart', 'bar']});
         @foreach($a_2 as $grf)
-            google.charts.setOnLoadCallback(drawChart_velocimetro{{$grf->id}});
+            google.charts.setOnLoadCallback(drawChart_velocimetro{{$grf['id']}});
         @endforeach
         
         google.charts.setOnLoadCallback(drawVisualization);
@@ -247,10 +245,10 @@
 
         //Gaugace Chart
         @foreach($a_2 as $grf)
-        function drawChart_velocimetro{{$grf->id}}() {
+        function drawChart_velocimetro{{$grf['id']}}() {
             var data = google.visualization.arrayToDataTable([
             ['Label', 'Value'],
-            ['Concretados', {{ $grf->p_avance }}],
+            ['Concretados', {{ $grf['p_avance'] }}],
             ]);
 
             var options = {
@@ -261,7 +259,7 @@
             minorTicks: 5
             };
 
-            var chart = new google.visualization.Gauge(document.getElementById('velocimetro_{{$grf->id}}'));
+            var chart = new google.visualization.Gauge(document.getElementById('velocimetro_{{$grf["id"]}}'));
 
             chart.draw(data, options);
 
