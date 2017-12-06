@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        
+    </row>    
     <div class="row">
         <div class="form-group col-md-6">
             <div class="box box-danger">
