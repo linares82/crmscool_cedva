@@ -161,6 +161,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
         @permission('WgaugesXplantel')
         @foreach($a_2 as $grf)
         <div class="form-group col-md-2 col-sm-2 col-xs-12">
