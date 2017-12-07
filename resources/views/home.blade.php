@@ -165,7 +165,7 @@
     <div class="row">
         @permission('WgaugesXplantel')
         @foreach($a_2 as $grf)
-        <div class="form-group col-md-2 col-sm-2 col-xs-12">
+        <div class="form-group col-lg-2 col-md-3 col-sm-4 col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h4 class="box-title">
