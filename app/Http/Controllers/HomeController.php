@@ -70,12 +70,12 @@ class HomeController extends Controller
                     ->groupBy('p.meta_total')
                     ->first();
             if(is_null($c)){
-                array_push($a_2, array('id'=>$p->id,'razon'=>$p->razon,'meta_total'=>0,'avance'=>$p->meta_total, 'p_avance'=>0));
+                array_push($a_2, array('id'=>$p->id,'razon'=>$p->razon,'meta_total'=>0,'avance'=>0, 'p_avance'=>0));
             }else {
                 array_push($a_2, $c->toArray());
             }
         }
-        //dd($a_2);
+        dd($a_2);
         //dd($gauges);
         
         /*$a_2=Seguimiento::select('p.id','p.razon', 'p.meta_total', 
