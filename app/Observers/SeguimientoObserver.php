@@ -76,7 +76,7 @@ class SeguimientoObserver
         $h->tarea='Seguimiento';
         $h->fecha=Carbon::now();
         $h->hora=Carbon::now();
-        $h->asunto='Cambio estatus ';
+        $h->asunto='Cambio estatus';
         $h->detalle=$this->Seguimiento->stSeguimiento->name;
         $h->usu_alta_id=$this->Seguimiento->usu_alta_id;
         $h->usu_mod_id=$this->Seguimiento->usu_mod_id;

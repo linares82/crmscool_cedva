@@ -60,7 +60,7 @@ class HomeController extends Controller
                     ->join('plantels as p', 'p.id', '=', 'c.plantel_id')
                     ->join('hactividades as h', 'h.cliente_id', '=', 'c.id')
                     ->where('h.tarea', '=', 'Seguimiento')
-                    ->where('h.detalle', '=', 'Concretado')
+                    ->where('h.detalle', '=', 'INSCRITO')
                     ->where('h.created_at', '>=', $l->inicio)
                     ->where('h.created_at', '<=', $l->fin)
                     ->where('c.st_cliente_id', '=', '4')

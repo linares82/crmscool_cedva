@@ -178,7 +178,8 @@ class SeguimientosController extends Controller {
 		$seguimiento=$seguimiento->find($id);
                 
 		$seguimiento->update( $input );
-                if($seguimiento->st_seguimiento_id==2){
+                $stsf=DB::table('params')->where('llave', 'st_seguimiento_final')->first();
+                if($seguimiento->st_seguimiento_id==$stsf->valor){
                     $c=Cliente::find($seguimiento->cliente_id);
                     //dd($c->toArray());
                     $st=DB::table('params')->where('llave', 'st_cliente_final')->first();
