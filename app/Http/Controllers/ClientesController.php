@@ -127,6 +127,15 @@ class ClientesController extends Controller {
         } else {
             $input['extranjero'] = 1;
         }
+        if(!isset($input['ape_materno'])){
+            $input['ape_materno']=" ";
+        }
+        if(!isset($input['nombre2'])){
+            $input['nombre2']=" ";
+        }
+        if(!isset($input['matricula'])){
+            $input['matricula']=" ";
+        }
         //dd($input);
         //create data
         try {
@@ -273,6 +282,15 @@ class ClientesController extends Controller {
         $pc['respuesta'] = $input['respuesta'];
         $pc['usu_alta_id'] = Auth::user()->id;
         $pc['usu_mod_id'] = Auth::user()->id;
+        if(!isset($input['ape_materno'])){
+            $input['ape_materno']=" ";
+        }
+        if(!isset($input['nombre2'])){
+            $input['nombre2']=" ";
+        }
+        if(!isset($input['matricula'])){
+            $input['matricula']=" ";
+        }
         //dd($pc);
         unset($input['pregunta_id']);
         unset($input['respuesta']);
